@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, ArrowUpCircle, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { MOCK_PRODUCTS } from "@/data/mockData";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,13 +10,14 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { useToast } from "@/components/ui/use-toast";
+import { useState } from "react";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const { toast } = useToast();
+  const [products, setProducts] = useState(MOCK_PRODUCTS);
   
-  // Find the product from our mock data
-  const product = MOCK_PRODUCTS.find((p) => p.id === id);
+  const product = products.find((p) => p.id === id);
 
   if (!product) {
     return (
@@ -27,6 +29,19 @@ const ProductDetail = () => {
       </div>
     );
   }
+
+  const handleVote = () => {
+    setProducts((prevProducts) =>
+      prevProducts.map((p) =>
+        p.id === id ? { ...p, votes: p.votes + 1 } : p
+      )
+    );
+
+    toast({
+      title: "Vote registered!",
+      description: "Thank you for supporting this AI tool.",
+    });
+  };
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -91,10 +106,7 @@ const ProductDetail = () => {
                 <Button
                   variant="outline"
                   className="flex items-center gap-2"
-                  onClick={() => {
-                    // Reuse the same vote handler logic
-                    handleVote(product.id);
-                  }}
+                  onClick={handleVote}
                 >
                   <ArrowUpCircle className="text-gray-400" size={16} />
                   <span>{product.votes}</span>
