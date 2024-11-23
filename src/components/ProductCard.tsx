@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button } from "./ui/button";
 import { ArrowUpCircle } from "lucide-react";
 
@@ -9,19 +8,10 @@ interface ProductCardProps {
   imageUrl: string;
   votes: number;
   tags: string[];
+  onVote: () => void;
 }
 
-export const ProductCard = ({ id, name, description, imageUrl, votes, tags }: ProductCardProps) => {
-  const [voteCount, setVoteCount] = useState(votes);
-  const [hasVoted, setHasVoted] = useState(false);
-
-  const handleVote = () => {
-    if (!hasVoted) {
-      setVoteCount(prev => prev + 1);
-      setHasVoted(true);
-    }
-  };
-
+export const ProductCard = ({ id, name, description, imageUrl, votes, tags, onVote }: ProductCardProps) => {
   return (
     <div className="glass-card rounded-xl p-4 hover-scale">
       <div className="flex gap-4">
@@ -50,13 +40,12 @@ export const ProductCard = ({ id, name, description, imageUrl, votes, tags }: Pr
               </div>
             </div>
             <Button
-              onClick={handleVote}
-              variant={hasVoted ? "secondary" : "outline"}
+              onClick={onVote}
+              variant="outline"
               className="flex items-center gap-2"
-              disabled={hasVoted}
             >
-              <ArrowUpCircle className={hasVoted ? "text-coral-500" : "text-gray-400"} size={16} />
-              <span>{voteCount}</span>
+              <ArrowUpCircle className="text-gray-400" size={16} />
+              <span>{votes}</span>
             </Button>
           </div>
         </div>
