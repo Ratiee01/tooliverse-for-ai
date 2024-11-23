@@ -48,7 +48,7 @@ const MOCK_PRODUCTS = generateMockProducts();
 const ITEMS_PER_PAGE = 10;
 
 const Index = () => {
-  const [products] = useState(MOCK_PRODUCTS);
+  const [products, setProducts] = useState(MOCK_PRODUCTS);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -56,12 +56,12 @@ const Index = () => {
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    setCurrentPage(1); // Reset to first page on new search
+    setCurrentPage(1);
   };
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
-    setCurrentPage(1); // Reset to first page on category change
+    setCurrentPage(1);
   };
 
   const handleVote = (productId: string) => {
@@ -164,7 +164,7 @@ const Index = () => {
                 {totalPages > 5 && (
                   <>
                     <PaginationItem>
-                      <PaginationLink disabled>...</PaginationLink>
+                      <PaginationLink>...</PaginationLink>
                     </PaginationItem>
                     <PaginationItem>
                       <PaginationLink
