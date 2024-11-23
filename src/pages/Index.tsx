@@ -4,6 +4,8 @@ import { SearchBox } from "@/components/SearchBox";
 import { Categories } from "@/components/Categories";
 import { useToast } from "@/components/ui/use-toast";
 import { MOCK_PRODUCTS } from "@/data/mockData";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import {
   Pagination,
   PaginationContent,
@@ -80,6 +82,14 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <div className="container px-4 py-16 mx-auto">
+        <div className="absolute top-4 right-4 space-x-2">
+          <Button variant="outline" asChild>
+            <Link to="/login">Sign In</Link>
+          </Button>
+          <Button asChild>
+            <Link to="/signup">Sign Up</Link>
+          </Button>
+        </div>
         <header className="text-center mb-16 fade-in">
           <div className="inline-block px-4 py-1 bg-coral-50 rounded-full text-coral-600 text-sm font-medium mb-4">
             {filteredProducts.length} AI Tools Available
