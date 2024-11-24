@@ -31,19 +31,19 @@ export const AiBackground = () => {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        size: Math.random() * 2 + 1,
-        speedX: (Math.random() - 0.5) * 0.5,
-        speedY: (Math.random() - 0.5) * 0.5,
+        size: Math.random() * 1.5 + 0.5, // Reduced particle size
+        speedX: (Math.random() - 0.5) * 0.3, // Slower movement
+        speedY: (Math.random() - 0.5) * 0.3, // Slower movement
       });
     }
 
     // Animation
     const animate = () => {
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.02)'; // More transparent background
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       particles.forEach((particle) => {
-        ctx.fillStyle = 'rgba(99, 102, 241, 0.1)';
+        ctx.fillStyle = 'rgba(99, 102, 241, 0.05)'; // More transparent particles
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fill();
@@ -67,8 +67,8 @@ export const AiBackground = () => {
           const distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < 100) {
-            ctx.strokeStyle = `rgba(99, 102, 241, ${0.1 * (1 - distance / 100)})`;
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = `rgba(99, 102, 241, ${0.03 * (1 - distance / 100)})`; // More transparent lines
+            ctx.lineWidth = 0.3; // Thinner lines
             ctx.beginPath();
             ctx.moveTo(particle1.x, particle1.y);
             ctx.lineTo(particle2.x, particle2.y);
@@ -90,7 +90,7 @@ export const AiBackground = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed top-0 left-0 w-full h-full -z-10 opacity-30"
+      className="fixed top-0 left-0 w-full h-full -z-10 opacity-20" // Reduced opacity
     />
   );
 };
