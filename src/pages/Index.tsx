@@ -6,6 +6,7 @@ import { MOCK_PRODUCTS } from "@/data/mockData";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ProductList } from "@/components/products/ProductList";
+import { CounterAnimation } from "@/components/CounterAnimation";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -133,7 +134,7 @@ const Index = () => {
                 animation: 'counter 1s cubic-bezier(0.11, 0, 0.5, 0)'
               }}
             >
-              <span className="font-bold mr-1">{filteredProducts.length}</span>
+              <CounterAnimation end={filteredProducts.length} duration={1000} />
               AI Tools Available
             </div>
           </div>
