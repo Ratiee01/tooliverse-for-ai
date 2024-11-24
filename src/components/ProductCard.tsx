@@ -1,61 +1,55 @@
-import { Button } from "./ui/button";
-import { ArrowUpCircle } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Star } from "lucide-react";
 
 interface ProductCardProps {
   id: string;
   name: string;
   description: string;
-  imageUrl: string;
+  category: string;
   votes: number;
-  tags: string[];
-  onVote: (e: React.MouseEvent) => void;
+  onVote?: () => void;
+  isFavorite?: boolean;
+  onFavorite?: () => void;
+  showFavorite?: boolean;
 }
 
-export const ProductCard = ({ id, name, description, imageUrl, votes, tags, onVote }: ProductCardProps) => {
+export const ProductCard = ({
+  name,
+  description,
+  category,
+  votes,
+  onVote,
+  isFavorite,
+  onFavorite,
+  showFavorite = true,
+}: ProductCardProps) => {
   return (
-    <Link to={`/product/${id}`} className="block">
-      <div className="glass-card rounded-xl p-4 hover-scale">
-        <div className="flex gap-4">
-          <div className="flex-shrink-0 w-24 h-24">
-            <img
-              src={imageUrl}
-              alt={name}
-              className="w-full h-full object-cover rounded-lg"
-              loading="lazy"
-            />
-          </div>
-          <div className="flex-grow">
-            <div className="flex items-start justify-between">
-              <div>
-                <h3 className="font-semibold text-lg">{name}</h3>
-                <p className="text-sm text-gray-600 mt-1">{description}</p>
-                <div className="flex gap-2 mt-2">
-                  {tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2 py-1 bg-gray-100 rounded-full text-xs text-gray-600"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <Button
-                onClick={(e) => {
-                  e.preventDefault();
-                  onVote(e);
-                }}
-                variant="outline"
-                className="flex items-center gap-2"
-              >
-                <ArrowUpCircle className="text-gray-400" size={16} />
-                <span>{votes}</span>
-              </Button>
-            </div>
-          </div>
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between">
+        <div>
+          <CardTitle className="text-xl">{name}</CardTitle>
+          <div className="text-sm text-muted-foreground">{category}</div>
         </div>
-      </div>
-    </Link>
+        <div className="flex items-center space-x-2">
+          {showFavorite && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onFavorite}
+              className={isFavorite ? "text-yellow-500" : ""}
+            >
+              <Star className="h-5 w-5" />
+            </Button>
+          )}
+          <Button variant="outline" onClick={onVote}>
+            ↑ {votes}
+          </Button>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground">{description}</p>
+      </CardContent>
+    </Card>
   );
 };

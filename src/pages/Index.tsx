@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { ProductCard } from "@/components/ProductCard";
 import { SearchBox } from "@/components/SearchBox";
 import { Categories } from "@/components/Categories";
 import { useToast } from "@/components/ui/use-toast";
 import { MOCK_PRODUCTS } from "@/data/mockData";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { ProductList } from "@/components/products/ProductList";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -53,21 +53,6 @@ const Index = () => {
     setCurrentPage(1);
   };
 
-  const handleVote = (productId: string) => {
-    setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product.id === productId
-          ? { ...product, votes: product.votes + 1 }
-          : product
-      )
-    );
-
-    toast({
-      title: "Vote registered!",
-      description: "Thank you for supporting this AI tool.",
-    });
-  };
-
   const filteredProducts = products
     .filter((product) =>
       selectedCategory === "all" ? true : product.category === selectedCategory
@@ -79,10 +64,6 @@ const Index = () => {
     .sort((a, b) => b.votes - a.votes);
 
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
-  const paginatedProducts = filteredProducts.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  );
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -112,13 +93,17 @@ const Index = () => {
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <User className="mr-2 h-4 w-4" />
-                <span>Profile</span>
+              <DropdownMenuItem asChild>
+                <Link to="/profile">
+                  <User className="mr-2 h-4 w-4" />
+                  <span>Profile</span>
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Settings</span>
+              <DropdownMenuItem asChild>
+                <Link to="/settings">
+                  <Settings className="mr-2 h-4 w-4" />
+                  <span>Settings</span>
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
@@ -147,22 +132,11 @@ const Index = () => {
           />
         </header>
 
-        <div className="max-w-3xl mx-auto space-y-6">
-          {paginatedProducts.map((product, index) => (
-            <div
-              key={product.id}
-              className="fade-in-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <ProductCard {...product} onVote={() => handleVote(product.id)} />
-            </div>
-          ))}
-          {paginatedProducts.length === 0 && (
-            <div className="text-center text-gray-500 py-8">
-              No AI tools found matching your criteria
-            </div>
-          )}
-        </div>
+        <ProductList 
+          products={filteredProducts}
+          currentPage={currentPage}
+          itemsPerPage={ITEMS_PER_PAGE}
+        />
 
         {filteredProducts.length > ITEMS_PER_PAGE && (
           <div className="mt-12">
