@@ -2,7 +2,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { User } from "lucide-react";
 import { FavoriteTools } from "@/components/profile/FavoriteTools";
-import { FloatingBar } from "@/components/profile/FloatingBar";
 
 const Profile = () => {
   return (
@@ -28,7 +27,6 @@ const Profile = () => {
         </Card>
         <FavoriteTools />
       </div>
-      <FloatingBar />
     </div>
   );
 };

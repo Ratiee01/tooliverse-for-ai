@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ProductList } from "@/components/products/ProductList";
 import { CounterAnimation } from "@/components/CounterAnimation";
 import { AiBackground } from "@/components/AiBackground";
+import { FloatingBar } from "@/components/profile/FloatingBar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -203,6 +204,7 @@ const Index = () => {
           </div>
         )}
       </div>
+      <FloatingBar />
     </div>
   );
 };
