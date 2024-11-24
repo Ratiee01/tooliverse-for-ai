@@ -8,6 +8,7 @@ interface ProductCardProps {
   description: string;
   category: string;
   votes: number;
+  imageUrl: string;
   onVote?: () => void;
   isFavorite?: boolean;
   onFavorite?: () => void;
@@ -19,6 +20,7 @@ export const ProductCard = ({
   description,
   category,
   votes,
+  imageUrl,
   onVote,
   isFavorite,
   onFavorite,
@@ -27,9 +29,18 @@ export const ProductCard = ({
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
-        <div>
-          <CardTitle className="text-xl">{name}</CardTitle>
-          <div className="text-sm text-muted-foreground">{category}</div>
+        <div className="flex items-center space-x-4">
+          <div className="w-16 h-16 rounded-lg overflow-hidden">
+            <img
+              src={imageUrl}
+              alt={name}
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div>
+            <CardTitle className="text-xl">{name}</CardTitle>
+            <div className="text-sm text-muted-foreground">{category}</div>
+          </div>
         </div>
         <div className="flex items-center space-x-2">
           {showFavorite && (
