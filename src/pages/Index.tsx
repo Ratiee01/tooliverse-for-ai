@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ProductList } from "@/components/products/ProductList";
 import { CounterAnimation } from "@/components/CounterAnimation";
+import { AiBackground } from "@/components/AiBackground";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -73,6 +74,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      <AiBackground />
       <div className="container px-4 py-16 mx-auto">
         <div className="absolute top-4 right-4 flex items-center space-x-2">
           <Button variant="outline" asChild>
