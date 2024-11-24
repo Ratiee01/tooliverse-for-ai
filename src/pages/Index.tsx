@@ -120,15 +120,23 @@ const Index = () => {
               AI-Hunt
             </h1>
           </Link>
-          <div className="inline-block px-4 py-1 bg-coral-50 rounded-full text-coral-600 text-sm font-medium mb-4">
-            {filteredProducts.length} AI Tools Available
-          </div>
           <h2 className="text-3xl font-bold mb-4">
             Find the Best AI Tools
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto mb-8">
             Join our community to explore and vote for the most innovative AI tools that are shaping the future of technology
           </p>
+          <div className="flex justify-center items-center mb-8">
+            <div 
+              className="inline-flex items-center px-4 py-1 bg-coral-50 rounded-full text-coral-600 text-sm font-medium animate-[counter_2s_ease-out]"
+              style={{
+                animation: 'counter 1s cubic-bezier(0.11, 0, 0.5, 0)'
+              }}
+            >
+              <span className="font-bold mr-1">{filteredProducts.length}</span>
+              AI Tools Available
+            </div>
+          </div>
           <SearchBox onSearch={handleSearch} />
           <Categories
             categories={CATEGORIES}
