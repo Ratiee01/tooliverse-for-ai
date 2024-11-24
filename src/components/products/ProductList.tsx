@@ -8,6 +8,7 @@ interface Product {
   description: string;
   category: string;
   votes: number;
+  imageUrl: string;
 }
 
 interface ProductListProps {
