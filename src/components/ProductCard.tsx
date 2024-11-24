@@ -9,9 +9,9 @@ interface ProductCardProps {
   category: string;
   votes: number;
   imageUrl: string;
-  onVote?: () => void;
+  onVote: () => void;
   isFavorite?: boolean;
-  onFavorite?: () => void;
+  onFavorite?: (e: React.MouseEvent) => void;
   showFavorite?: boolean;
 }
 
@@ -53,7 +53,13 @@ export const ProductCard = ({
               <Star className="h-5 w-5" />
             </Button>
           )}
-          <Button variant="outline" onClick={onVote}>
+          <Button 
+            variant="outline" 
+            onClick={(e) => {
+              e.preventDefault(); // Prevent navigation when clicking vote
+              onVote();
+            }}
+          >
             ↑ {votes}
           </Button>
         </div>

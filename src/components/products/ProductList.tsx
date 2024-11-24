@@ -1,6 +1,7 @@
 import { ProductCard } from "@/components/ProductCard";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Link } from "react-router-dom";
 
 interface Product {
   id: string;
@@ -19,6 +20,18 @@ interface ProductListProps {
 
 export const ProductList = ({ products, currentPage, itemsPerPage }: ProductListProps) => {
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
+  const [localProducts, setLocalProducts] = useState<Product[]>(products);
+
+  const handleVote = (productId: string) => {
+    setLocalProducts((prevProducts) =>
+      prevProducts.map((product) =>
+        product.id === productId
+          ? { ...product, votes: product.votes + 1 }
+          : product
+      )
+    );
+    toast.success("Vote recorded successfully!");
+  };
 
   const handleFavorite = (productId: string) => {
     setFavorites((prev) => {
@@ -35,24 +48,28 @@ export const ProductList = ({ products, currentPage, itemsPerPage }: ProductList
   };
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedProducts = products.slice(startIndex, startIndex + itemsPerPage);
+  const paginatedProducts = localProducts.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       {paginatedProducts.map((product, index) => (
-        <div
+        <Link 
+          to={`/product/${product.id}`} 
           key={product.id}
-          className="fade-in-up"
+          className="block fade-in-up"
           style={{ animationDelay: `${index * 0.1}s` }}
         >
           <ProductCard 
             {...product} 
-            onVote={() => {}} 
+            onVote={() => handleVote(product.id)} 
             isFavorite={favorites.has(product.id)}
-            onFavorite={() => handleFavorite(product.id)}
+            onFavorite={(e) => {
+              e.preventDefault(); // Prevent navigation when clicking favorite
+              handleFavorite(product.id);
+            }}
             showFavorite={true}
           />
-        </div>
+        </Link>
       ))}
       {paginatedProducts.length === 0 && (
         <div className="text-center text-gray-500 py-8">
