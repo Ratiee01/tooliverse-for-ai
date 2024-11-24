@@ -115,12 +115,17 @@ const Index = () => {
         </div>
 
         <header className="text-center mb-16 fade-in">
+          <Link to="/" className="inline-block mb-8">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
+              AI-Hunt
+            </h1>
+          </Link>
           <div className="inline-block px-4 py-1 bg-coral-50 rounded-full text-coral-600 text-sm font-medium mb-4">
             {filteredProducts.length} AI Tools Available
           </div>
-          <h1 className="text-4xl font-bold mb-4">
+          <h2 className="text-3xl font-bold mb-4">
             Find the Best AI Tools
-          </h1>
+          </h2>
           <p className="text-gray-600 max-w-2xl mx-auto mb-8">
             Join our community to explore and vote for the most innovative AI tools that are shaping the future of technology
           </p>
