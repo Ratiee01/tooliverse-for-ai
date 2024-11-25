@@ -78,7 +78,6 @@ const ProductDetail = () => {
 
           <div className="bg-white rounded-xl shadow-sm p-8 mb-8">
             <div className="grid md:grid-cols-12 gap-8">
-              {/* Left Column - Image */}
               <div className="md:col-span-4">
                 <div className="aspect-square rounded-lg overflow-hidden">
                   <img
@@ -89,7 +88,6 @@ const ProductDetail = () => {
                 </div>
               </div>
 
-              {/* Right Column - Content */}
               <div className="md:col-span-8">
                 <div className="flex items-start justify-between mb-6">
                   <div>
@@ -97,16 +95,6 @@ const ProductDetail = () => {
                     <p className="text-lg text-gray-600 mb-4">
                       {product.description}
                     </p>
-                    <div className="flex gap-2 mb-6">
-                      {product.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-600"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
                   </div>
                 </div>
 
@@ -148,7 +136,6 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          {/* Related Products */}
           <div className="mt-16">
             <h2 className="text-2xl font-bold mb-6">Related AI Tools</h2>
             <div className="grid gap-6">
