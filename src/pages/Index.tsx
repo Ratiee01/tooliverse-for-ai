@@ -3,22 +3,11 @@ import { SearchBox } from "@/components/SearchBox";
 import { Categories } from "@/components/Categories";
 import { useToast } from "@/components/ui/use-toast";
 import { MOCK_PRODUCTS } from "@/data/mockData";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { ProductList } from "@/components/products/ProductList";
-import { CounterAnimation } from "@/components/CounterAnimation";
 import { AiBackground } from "@/components/AiBackground";
 import { FloatingBar } from "@/components/profile/FloatingBar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Settings, User, LogOut } from "lucide-react";
+import { Header } from "@/components/home/Header";
+import { UserMenu } from "@/components/home/UserMenu";
 import {
   Pagination,
   PaginationContent,
@@ -47,7 +36,7 @@ const Index = () => {
   const { toast } = useToast();
 
   const handleSearch = (query: string) => {
-    console.log("Search query in Index:", query); // Debug log
+    console.log("Search query in Index:", query);
     setSearchQuery(query);
     setCurrentPage(1);
   };
@@ -71,7 +60,7 @@ const Index = () => {
     })
     .sort((a, b) => b.votes - a.votes);
 
-  console.log("Filtered products:", filteredProducts.length); // Debug log
+  console.log("Filtered products:", filteredProducts.length);
 
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
 
@@ -84,77 +73,14 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <AiBackground />
       <div className="container px-4 py-16 mx-auto">
-        <div className="absolute top-4 right-4 flex items-center space-x-2">
-          <Button variant="outline" asChild>
-            <Link to="/login">Sign In</Link>
-          </Button>
-          <Button asChild>
-            <Link to="/signup">Sign Up</Link>
-          </Button>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <Avatar>
-                  <AvatarFallback>
-                    <User className="h-5 w-5" />
-                  </AvatarFallback>
-                </Avatar>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link to="/profile">
-                  <User className="mr-2 h-4 w-4" />
-                  <span>Profile</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/settings">
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <LogOut className="mr-2 h-4 w-4" />
-                <span>Log out</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-
-        <header className="text-center mb-16 fade-in">
-          <Link to="/" className="inline-block mb-8">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-              AI-Hunt
-            </h1>
-          </Link>
-          <h2 className="text-3xl font-bold mb-4">
-            Find the Best AI Tools
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto mb-8">
-            Join our community to explore and vote for the most innovative AI tools that are shaping the future of technology
-          </p>
-          <div className="flex justify-center items-center mb-8">
-            <div 
-              className="inline-flex items-center px-4 py-1 bg-coral-50 rounded-full text-coral-600 text-sm font-medium animate-[counter_2s_ease-out]"
-              style={{
-                animation: 'counter 1s cubic-bezier(0.11, 0, 0.5, 0)'
-              }}
-            >
-              <CounterAnimation end={filteredProducts.length} duration={1000} />
-              AI Tools Available
-            </div>
-          </div>
-          <SearchBox onSearch={handleSearch} />
-          <Categories
-            categories={CATEGORIES}
-            selectedCategory={selectedCategory}
-            onSelectCategory={handleCategorySelect}
-          />
-        </header>
+        <UserMenu />
+        <Header productCount={filteredProducts.length} />
+        <SearchBox onSearch={handleSearch} />
+        <Categories
+          categories={CATEGORIES}
+          selectedCategory={selectedCategory}
+          onSelectCategory={handleCategorySelect}
+        />
 
         <ProductList 
           products={filteredProducts}
