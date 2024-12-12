@@ -27,10 +27,10 @@ export const ProductCard = ({
   showFavorite = true,
 }: ProductCardProps) => {
   return (
-    <Card>
+    <Card className="transform transition-all duration-300 hover:scale-[1.02] hover:shadow-lg animate-fade-in">
       <CardHeader className="flex flex-row items-center justify-between">
         <div className="flex items-center space-x-4">
-          <div className="w-16 h-16 rounded-lg overflow-hidden">
+          <div className="w-16 h-16 rounded-lg overflow-hidden transition-transform duration-300 hover:scale-110">
             <img
               src={imageUrl}
               alt={name}
@@ -48,7 +48,9 @@ export const ProductCard = ({
               variant="ghost"
               size="icon"
               onClick={onFavorite}
-              className={isFavorite ? "text-yellow-500" : ""}
+              className={`transition-colors duration-300 ${
+                isFavorite ? "text-yellow-500 hover:text-yellow-600" : "hover:text-yellow-500"
+              }`}
             >
               <Star className="h-5 w-5" />
             </Button>
@@ -56,9 +58,10 @@ export const ProductCard = ({
           <Button 
             variant="outline" 
             onClick={(e) => {
-              e.preventDefault(); // Prevent navigation when clicking vote
+              e.preventDefault();
               onVote();
             }}
+            className="transition-all duration-300 hover:bg-primary hover:text-primary-foreground"
           >
             ↑ {votes}
           </Button>
