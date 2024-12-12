@@ -47,6 +47,7 @@ const Index = () => {
   const { toast } = useToast();
 
   const handleSearch = (query: string) => {
+    console.log("Search query:", query); // Debug log
     setSearchQuery(query);
     setCurrentPage(1);
   };
@@ -61,10 +62,14 @@ const Index = () => {
       selectedCategory === "all" ? true : product.category === selectedCategory
     )
     .filter((product) =>
-      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchQuery.toLowerCase())
+      searchQuery
+        ? product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          product.description.toLowerCase().includes(searchQuery.toLowerCase())
+        : true
     )
     .sort((a, b) => b.votes - a.votes);
+
+  console.log("Filtered products:", filteredProducts); // Debug log
 
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
 
