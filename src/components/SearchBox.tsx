@@ -12,6 +12,7 @@ export const SearchBox = ({ onSearch }: SearchBoxProps) => {
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   useEffect(() => {
+    console.log("Debounced search term:", debouncedSearchTerm); // Debug log
     onSearch(debouncedSearchTerm);
   }, [debouncedSearchTerm, onSearch]);
 
@@ -22,7 +23,10 @@ export const SearchBox = ({ onSearch }: SearchBoxProps) => {
         className="pl-10 w-full"
         placeholder="Search AI tools..."
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={(e) => {
+          console.log("Search input changed:", e.target.value); // Debug log
+          setSearchTerm(e.target.value);
+        }}
       />
     </div>
   );

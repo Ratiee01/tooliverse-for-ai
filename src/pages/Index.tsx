@@ -40,14 +40,14 @@ const CATEGORIES = [
 const ITEMS_PER_PAGE = 10;
 
 const Index = () => {
-  const [products, setProducts] = useState(MOCK_PRODUCTS);
+  const [products] = useState(MOCK_PRODUCTS);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const { toast } = useToast();
 
   const handleSearch = (query: string) => {
-    console.log("Search query:", query); // Debug log
+    console.log("Search query in Index:", query); // Debug log
     setSearchQuery(query);
     setCurrentPage(1);
   };
@@ -61,15 +61,17 @@ const Index = () => {
     .filter((product) =>
       selectedCategory === "all" ? true : product.category === selectedCategory
     )
-    .filter((product) =>
-      searchQuery
-        ? product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          product.description.toLowerCase().includes(searchQuery.toLowerCase())
-        : true
-    )
+    .filter((product) => {
+      if (!searchQuery) return true;
+      const query = searchQuery.toLowerCase();
+      return (
+        product.name.toLowerCase().includes(query) ||
+        product.description.toLowerCase().includes(query)
+      );
+    })
     .sort((a, b) => b.votes - a.votes);
 
-  console.log("Filtered products:", filteredProducts); // Debug log
+  console.log("Filtered products:", filteredProducts.length); // Debug log
 
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
 
